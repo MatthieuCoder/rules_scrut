@@ -12,7 +12,7 @@ A simple scrut test case can be generated from
 a bazel rule like so:
 
 ```bazel
-load("//builder:builder.bzl", "scrut_case")
+load("@rules_scrut//builder:builder.bzl", "scrut_case")
 
 scrut_case(
     name = "addition",
@@ -36,7 +36,7 @@ Check that 1 + 1 is 2
 A scrut test file can be tested like so:
 
 ```bazel
-load("//:defs.bzl", "scrut_test")
+load("@rules_scrut//:defs.bzl", "scrut_test")
 
 scrut_test(
     name = "addition_test",
@@ -57,7 +57,7 @@ a single case could be useful.
 Aggregating those tests can be done like so:
 
 ```bazel
-load("//builder:builder.bzl", "scrut_aggregate")
+load("@rules_scrut//builder:builder.bzl", "scrut_aggregate")
 
 scrut_aggregate(
     name = "cases",
@@ -74,7 +74,7 @@ A rule is provided to automatically copy .t files
 into your source tree, 
 
 ```bazel
-load("//builder:builder.bzl", "scrut_emit")
+load("@rules_scrut//builder:builder.bzl", "scrut_emit")
 
 scrut_emit(
     name = "emit_tests",
