@@ -27,9 +27,23 @@ scrut_aggregate(
     srcs = ["generated_{}".format(i) for i in _TESTS],
 )
 
+scrut_case(
+    name = "addition",
+    description = "Check that 1 + 1 is 2",
+    command = "echo $(( 1 + 1 ))",
+    output = "2",
+    return_code = 0,
+)
+
+scrut_test(
+    name = "addition_test",
+    src = ":addition",
+    data = [],
+)
+
 scrut_emit(
     name = "emit_generated",
-    srcs = [":all_generated"],
+    srcs = [":all_generated", ":addition"],
     dst_dir = "test/generated",
 )
 
