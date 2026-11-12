@@ -1,0 +1,53 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+load("//:defs.bzl", "scrut_test")
+load("//builder:builder.bzl", "scrut_aggregate", "scrut_case", "scrut_emit")
+
+_TESTS = range(10)
+
+[
+    scrut_case(
+        name = "generated_{}".format(i),
+        description = "Echo {}".format(i),
+        command = "echo {}".format(i),
+        output = "{}".format(i),
+    )
+    for i in _TESTS
+]
+
+[
+    scrut_test(
+        name = "test_{}".format(i),
+        src = "generated_{}".format(i),
+    )
+    for i in _TESTS
+]
+
+scrut_aggregate(
+    name = "all_generated",
+    srcs = ["generated_{}".format(i) for i in _TESTS],
+)
+
+scrut_emit(
+    name = "emit_generated",
+    srcs = [":all_generated"],
+    dst_dir = "test/generated",
+)
+
+py_binary(
+    name = "dummy_cli",
+    srcs = ["dummy_cli.py"],
+    main = "dummy_cli.py",
+    legacy_create_init = 0,
+)
+
+scrut_test(
+    name = "dummy_cli_test",
+    src = "dummy_cli.t",
+    data = [":dummy_cli"],
+)
+
+scrut_test(
+    name = "dummy_cli_md_test",
+    src = "dummy_cli.md",
+    data = [":dummy_cli"],
+)
