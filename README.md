@@ -4,7 +4,9 @@ This is a bazel module that can be used to generate scrut test cases,
 aggregate them (merge) in a single .t file, and execute them while
 depending on bazel build artifacts.
 
-## Scrut test file generation
+## Usage
+
+### Scrut test file generation
 
 A simple scrut test case can be generated from
 a bazel rule like so:
@@ -27,7 +29,7 @@ Check that 1 + 1 is 2
   2
 ```
 
-## Running scrut tests
+### Running scrut tests
 
 A scrut test file can be tested like so:
 
@@ -42,7 +44,7 @@ scrut_test(
 Like so, our addition test will get exectued
 when doing `bazel test` on it.
 
-## Aggregating scrut tests
+### Aggregating scrut tests
 
 Bazel test targets tend to be pretty grannular,
 and in most cases, aggregating scrut_case into 
@@ -60,7 +62,7 @@ scrut_aggregate(
 )
 ```
 
-## Emitting scrut files in the source tree
+### Emitting scrut files in the source tree
 
 A rule is provided to automatically copy .t files
 into your source tree, 
